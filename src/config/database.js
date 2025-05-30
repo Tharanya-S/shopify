@@ -1,8 +1,9 @@
 const mongoose = require("mongoose");
+require("dotenv").config();
 
 const connectDB = async () => {
   await mongoose.connect(
-    "mongodb+srv://shopifydb:ICanDOIt%7E12062001@shopifydatabase.blnkavc.mongodb.net/"
+    process.env.MONGO_URI
   );
 };
 
