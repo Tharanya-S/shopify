@@ -1,19 +1,15 @@
 const express = require("express");
+const { connectDB } = require("./config/database");
 
 const app = express();
 
-app.use("/test", (req, res) => {
-  res.send("Here is the Testing page");
-});
-
-app.use("/hello", (req, res) => {
-  res.send("Hello World !!!");
-});
-
-app.use("/", (req, res) => {
-  res.send("Server Running Successfully");
-}); //this should always come at time as '/' is the prefix for all route
-
-app.listen(7000, () => {
-  console.log("Server running successfully on Port : 7777");
-});
+connectDB()
+  .then(() => {
+    console.log("DB connected");
+    app.listen(7777, () => {
+      console.log("Server running successfully on Port : 7777");
+    });
+  })
+  .catch(() => {
+    console.log("DB not connected");
+  });
