@@ -15,6 +15,17 @@ const userAuth = async (req, res, next) => {
     );
     const user = await User.findById(decoded._id);
 
+    try {
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    } catch (err) {
+      if (err.name === 'TokenExpiredError') {
+        return res.status(401).json({ message: "Token expired" });
+      }
+      return res.status(401).json({ message: "Invalid token" });
+    }
+    
+
     if (!user) {
       return res
         .status(401)
