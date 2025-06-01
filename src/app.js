@@ -3,6 +3,7 @@ const { connectDB } = require("./config/database");
 const cookieParser = require("cookie-parser");
 const authRouter = require("./routes/authRouter");
 const cartRouter = require("./routes/cartRouter");
+const orderRouter = require("./routes/orderRouter");
 require("dotenv").config();
 
 const app = express();
@@ -18,8 +19,9 @@ app.use(
 );
 app.use(cookieParser());
 
-app.use("/api/auth", authRouter);//=>from here it goes to fetch email and verify email and create a cookie
+app.use("/api/auth", authRouter); //=>from here it goes to fetch email and verify email and create a cookie
 app.use("/", cartRouter);
+app.use("/order", orderRouter);
 
 connectDB()
   .then(() => {
